@@ -9,6 +9,19 @@
  - React 0.15
  - kentonv:accounts-sandstorm 0.7.0
 
+ sandstorm.conf file:
+ ```
+SERVER_USER=sandstorm
+PORT=6080
+MONGO_PORT=6081
+BIND_IP=0.0.0.0
+BASE_URL=http://local.sandstorm.io:6080
+WILDCARD_HOST=*.local.sandstorm.io:6080
+UPDATE_CHANNEL=dev
+ALLOW_DEV_ACCOUNTS=yes
+SMTP_LISTEN_PORT=30025
+ ```
+
 ## Steps to reproduce
 
  - install node modules: `meteor npm install`
