@@ -40,7 +40,9 @@ export default class FileContainer extends React.Component {
     }
 
     onClose = () => {
-        if (this.props.onCloseFile) this.props.onCloseFile()
+        this.setState({ status: PageStatus.Initial }, () => {
+            if (this.props.onCloseFile) this.props.onCloseFile()
+        })
     }
 
     render() {

@@ -89,7 +89,7 @@ export default class Files extends React.Component {
         let eFiles = files
         if (filter) {
             const re = new RegExp(filter, 'i')
-            eFiles = _.filter(files, f => re.test(f))
+            eFiles = _.filter(files, f => re.test(f.file))
         }
 
         return (
