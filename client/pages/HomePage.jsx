@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
+import { isSandstorm } from '../../lib/common'
+import Files from '../components/Files'
 
 class HomePage extends Component {
     constructor(props) {
@@ -16,25 +18,31 @@ class HomePage extends Component {
 
     render() {
         const { user, loggingIn } = this.props
-        if (!user && !loggingIn) {
-            return (
-                <div className="index">
-                    Not logged in. Please log in.
-                </div>
-            )
+        let username = '---'
+        if (isSandstorm()) {
+            if (!user && !loggingIn) {
+                return (
+                    <div className="index">
+                        Not logged in. Please log in.
+                    </div>
+                )
+            }
+            if (!user && loggingIn) {
+                return (
+                    <div className="index"> ... logging in ... </div>
+                )
+            }
+            username = (user && user.profile && user.profile.name) || '---'
         }
-        if (!user && loggingIn) {
-            return (
-                <div className="index"> ... logging in ... </div>
-            )
-        }
-        const username = (user && user.profile && user.profile.name) || '---'
+        
         return (
             <div className="index">
                 Connected user: {username} <br />
                 Local root: {Meteor.absoluteUrl()} <br />
+                <Files />
             </div>
         )
+            
     }
 }
 

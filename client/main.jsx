@@ -6,6 +6,7 @@ import { ReactRouterSSR } from 'meteor/reactrouter:react-router-ssr'
 import App from './pages/App'
 import HomePage from './pages/HomePage'
 import './main.scss'
+import './bootstrap.min.css'
 
 const AppRoutes = (
     <Route path = "/" component = {App} >

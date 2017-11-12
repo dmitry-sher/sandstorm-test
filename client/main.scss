@@ -1,1 +1,32 @@
 /* CSS declarations go here */
+.fileList {
+    button {
+        display: block;
+    }
+}
+
+.pre {
+    white-space: pre
+}
+
+.flexy {
+    display: flex;
+    flex-direction: row;
+    &>div {
+        width: 50%
+    }
+}
+
+.pointer { 
+    cursor: hand
+}
+
+.fileContents {
+    position: relative;
+
+    .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
