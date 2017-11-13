@@ -16,7 +16,7 @@ export const FileContents = (props) => {
     return(
         <div>
             <h3>{file}</h3>
-            <textarea value="contents"></textarea>
+            <textarea value={contents}></textarea>
         </div>
     )
 }

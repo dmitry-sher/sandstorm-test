@@ -32,3 +32,4 @@ http@1.2.12
 aldeed:collection2@=2.10.0
 aldeed:simple-schema
 aldeed:collection2-core@1.2.0
+melusina:node-capnp

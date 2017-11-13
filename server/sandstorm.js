@@ -11,6 +11,22 @@ function promisifyCb(cb, arg) {
     })
 }
 
+function getPaths() {
+    var importPath = []
+    const path = require('path')
+    for (var i in module.paths) {
+      importPath.push(module.paths[i])
+    }
+    
+    if ("NODE_PATH" in process.env) {
+      var parts = process.env.NODE_PATH.split(path.delimiter);
+      for (var j in parts) {
+        importPath.push(parts[j]);
+      }
+    }
+    return importPath
+}
+
 Meteor.methods({
     async dir(path = '/') {
         const fs = require('fs');
@@ -34,8 +50,9 @@ Meteor.methods({
             const modules = ['capnp', 'isarray', 'test']
             const paths = {}
             modules.forEach(module => paths[module] = require.resolve(module))
-            return { files, dirname, paths }
+            return { files, dirname, paths, imports: getPaths() }
         } catch (e) {
+            console.warn(e)
             throw new Meteor.Error('error', e.toString())
         }
     }, 
@@ -59,15 +76,40 @@ Meteor.methods({
 if (isSandstorm() && Meteor.isServer) {
     // const dir = `${__dirname}/node_modules/capnp`
     
-    function checkModule(dir) {
-        try {
-            const Capnp = require(dir)
-        } catch (e) {
-            console.warn(e)
-        }
-    }
-    checkModule('../node_modules/capnp')
-    checkModule('../../node_modules/capnp')
-    checkModule('../../../node_modules/capnp')
-    checkModule('../../../../node_modules/capnp')
+    console.log('capnp = ', Capnp)
+    // function checkModule(dir) {
+    //     console.log(`loading ${dir} ...`)
+    //     try {
+    //         const Capnp = require(dir)
+    //     } catch (e) {
+    //         console.warn(e)
+    //         console.warn(e.toString())
+    //     }
+    // }
+    // checkModule('capnp')
+    // checkModule('assets/app/capnp')
+    // checkModule('assets/app/capnp.node')
+    // checkModule('./assets/app/capnp')
+    // checkModule('./assets/app/capnp.node')
+    // checkModule('../assets/app/capnp')
+    // checkModule('../assets/app/capnp.node')
+    // checkModule('capnp/capnp')
+    // checkModule('capnp/capnp.js')
+    // checkModule('capnp.js')
+    // checkModule('../capnp')
+    // checkModule('../capnp/capnp')
+    // checkModule('../capnp/capnp.js')
+    // checkModule('../capnp.js')
+    // checkModule('./capnp')
+    // checkModule('./capnp/capnp')
+    // checkModule('./capnp/capnp.js')
+    // checkModule('./capnp.js')
+    // checkModule('../../capnp')
+    // checkModule('../../capnp/capnp')
+    // checkModule('../../capnp/capnp.js')
+    // checkModule('../../capnp.js')
+    // checkModule('../node_modules/capnp')
+    // checkModule('../../node_modules/capnp')
+    // checkModule('../../../node_modules/capnp')
+    // checkModule('../../../../node_modules/capnp')
 }
